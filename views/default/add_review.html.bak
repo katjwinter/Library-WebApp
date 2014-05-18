@@ -1,0 +1,5 @@
+{{extend 'layout.html'}}
+<h2>Write A Review</h2>
+{{if form:}}
+    {{=form}}
+{{pass}}

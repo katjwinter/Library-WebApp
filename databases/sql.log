@@ -1,0 +1,123 @@
+timestamp: 2012-03-13T12:48:07.748934
+CREATE TABLE auth_user(
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    first_name CHAR(128),
+    last_name CHAR(128),
+    email CHAR(512),
+    password CHAR(512),
+    registration_key CHAR(512),
+    reset_password_key CHAR(512),
+    registration_id CHAR(512)
+);
+success!
+timestamp: 2012-03-13T12:48:07.987678
+CREATE TABLE auth_group(
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    role CHAR(512),
+    description TEXT
+);
+success!
+timestamp: 2012-03-13T12:48:08.165336
+CREATE TABLE auth_membership(
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    user_id INTEGER REFERENCES auth_user(id) ON DELETE CASCADE,
+    group_id INTEGER REFERENCES auth_group(id) ON DELETE CASCADE
+);
+success!
+timestamp: 2012-03-13T12:48:08.249286
+CREATE TABLE auth_permission(
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    group_id INTEGER REFERENCES auth_group(id) ON DELETE CASCADE,
+    name CHAR(512),
+    table_name CHAR(512),
+    record_id INTEGER
+);
+success!
+timestamp: 2012-03-13T12:48:08.307474
+CREATE TABLE auth_event(
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    time_stamp TIMESTAMP,
+    client_ip CHAR(512),
+    user_id INTEGER REFERENCES auth_user(id) ON DELETE CASCADE,
+    origin CHAR(512),
+    description TEXT
+);
+success!
+timestamp: 2012-03-13T12:48:08.401797
+CREATE TABLE auth_cas(
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    user_id INTEGER REFERENCES auth_user(id) ON DELETE CASCADE,
+    created_on TIMESTAMP,
+    service CHAR(512),
+    ticket CHAR(512),
+    renew CHAR(1)
+);
+success!
+timestamp: 2012-05-20T19:51:34.887087
+CREATE TABLE library(
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    name CHAR(512)
+);
+success!
+timestamp: 2012-05-27T04:48:40.960779
+CREATE TABLE book_copy(
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    isbn CHAR(512),
+    authors TEXT,
+    title CHAR(512),
+    publisher CHAR(512),
+    publication_date CHAR(512),
+    location CHAR(512),
+    format CHAR(512),
+    barcode CHAR(512)
+);
+success!
+timestamp: 2012-05-27T04:48:41.177090
+CREATE TABLE patron(
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    first_name CHAR(512),
+    last_name CHAR(512),
+    email CHAR(512),
+    fines DOUBLE
+);
+success!
+timestamp: 2012-05-27T04:48:41.298484
+CREATE TABLE checkout(
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    patron_id INTEGER REFERENCES patron(id) ON DELETE CASCADE,
+    copy_id INTEGER REFERENCES book_copy(id) ON DELETE CASCADE,
+    check_out_date DATE,
+    due_date DATE
+);
+success!
+timestamp: 2012-05-27T04:48:41.398137
+CREATE TABLE review(
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    book_id INTEGER REFERENCES book_copy(id) ON DELETE CASCADE,
+    body CHAR(512),
+    written_by INTEGER REFERENCES auth_user(id) ON DELETE CASCADE,
+    written_on DATE
+);
+success!
+timestamp: 2012-05-27T13:21:28.727510
+ALTER TABLE library ADD checkout_days INTEGER;
+timestamp: 2012-05-27T13:21:28.807647
+ALTER TABLE patron ADD suspended CHAR(1);
+timestamp: 2012-05-27T13:56:35.480105
+ALTER TABLE library ADD last_modified_by INTEGER REFERENCES auth_user(id) ON DELETE CASCADE;
+timestamp: 2012-05-28T14:30:38.161889
+ALTER TABLE auth_user ADD patron_membership_id CHAR(512);
+timestamp: 2012-05-28T18:23:26.271144
+ALTER TABLE patron ADD membership_id CHAR(512);
+timestamp: 2012-06-06T01:03:11.275766
+ALTER TABLE review ADD heading CHAR(512);
+timestamp: 2012-06-06T01:27:25.967723
+CREATE TABLE news_post(
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    headline CHAR(512),
+    body TEXT,
+    written_on DATE
+);
+success!
+timestamp: 2012-06-06T20:30:41.041880
+ALTER TABLE book_copy ADD description TEXT;

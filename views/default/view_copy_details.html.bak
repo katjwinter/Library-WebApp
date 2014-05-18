@@ -1,0 +1,17 @@
+{{extend 'layout.html'}}
+<h2>Modify Copy</h2>
+{{if form:}}
+<p>
+Current Location: {{=location}}</br>
+{{if location == 'stacks':}}
+    <a href = "{{=URL('process_location_change_missing', args=request.args(0))}}">Mark Copy Missing</a><br>
+    <a href = "{{=URL('process_location_change_binding', args=request.args(0))}}">Mark In Binding</a><br>
+{{elif location == 'missing' or location == 'binding':}}
+    <a href = "{{=URL('process_location_change_stacks', args=request.args(0))}}">Mark Returned to Stacks</a></br>
+{{pass}}
+<a href = "{{=URL('process_delete', args=request.args(0))}}">Delete Copy</a>   
+</p>
+    {{=form}}
+{{else:}}
+    <p>No Copy Selected</p>
+{{pass}}

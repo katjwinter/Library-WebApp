@@ -1,0 +1,8 @@
+{{extend 'layout.html'}}
+<h2>Current Settings</h2>
+Library Name: {{=current_setting.name}}</br>
+Checkout Time: {{=current_setting.checkout_days}} days</br>
+Last Modified By: {{=current_setting.last_modified_by.first_name}} {{=current_setting.last_modified_by.last_name}}
+
+<h2>Modify Settings</h2>
+{{=form}}

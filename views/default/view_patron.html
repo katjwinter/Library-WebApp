@@ -1,0 +1,11 @@
+{{extend 'layout.html'}}
+{{if patron:}}
+    <h2>Patron Information</h2>
+    Name: {{=patron.first_name}} {{=patron.last_name}} </br>
+    Email: {{=patron.email}} </br>
+    Fines: {{=patron.fines}} </br>
+    <a style="color: #A7430F" href="{{=URL('pay_fine', vars={'patron_id':patron.id})}}">Pay Fines</a>
+{{else:}}
+    <h2>Find Patron</h2>
+    {{=form}}
+{{pass}}

@@ -1,0 +1,18 @@
+{{extend 'layout.html'}}
+<h2>Test Search</h2>
+{{=form}}
+
+{{if results:}}
+    <h2>Search Results</h2>
+    {{for result in results:}}
+        <p>
+        ISBN: {{=result.isbn}} </br>
+        Title: {{=result.title}} </br>
+        {{for author in result.authors:}}
+            Author: {{=author}} </br>
+        {{pass}}
+        Barcode: {{=result.barcode}} </br>
+        </p>
+        <p><a style="color: #A7430F" href="{{=URL('view_copy_details', args=result.id)}}">View/Modify Details</a></p>
+    {{pass}}
+{{pass}}

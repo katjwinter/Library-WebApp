@@ -1,0 +1,5 @@
+{{extend 'layout.html'}}
+<h2>Pay Fine</h2>
+Patron: {{=patron.first_name}} {{=patron.last_name}}</br>
+Current Fines: {{=patron.fines}}
+{{=form}}

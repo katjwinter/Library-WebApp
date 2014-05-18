@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<!-- Based on a Design ("Deviation") by Free CSS Templates http://www.freecsstemplates.org
+Released for free under a Creative Commons Attribution 2.5 License -->
+
+<head>
+  <meta charset="utf-8" />
+  
+  <title>{{=response.title or request.application}}</title>
+  
+  <!-- http://dev.w3.org/html5/markup/meta.name.html -->
+  <meta name="application-name" content="{{=request.application}}" />
+  
+  <!-- Speaking of Google, don't forget to set your site up:
+       http://google.com/webmasters -->
+  <meta name="google-site-verification" content="" />
+
+  <!--  Mobile Viewport Fix
+      j.mp/mobileviewport & davidbcalhoun.com/2010/viewport-metatag
+      device-width: Occupy full width of the screen in its current orientation
+      initial-scale = 1.0 retains dimensions instead of zooming out if page height > device height
+      user-scalable = yes allows the user to zoom in -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  
+  <!-- Place favicon.ico and apple-touch-icon.png in the root of your domain and delete these references -->
+  <link rel="shortcut icon" href="{{=URL('static','favicon.ico')}}" type="image/x-icon">
+  <link rel="apple-touch-icon" href="{{=URL('static','favicon.png')}}">
+
+  <!-- All JavaScript at the bottom, except for Modernizr which enables 
+       HTML5 elements & feature detects -->
+  <script src="{{=URL('static','js/modernizr.custom.js')}}"></script>  
+
+  <!-- include stylesheets:
+      standard web2py stylesheets for menus followed by
+      our style sheet for fruitopia specifically -->
+  {{
+  response.files.append(URL('static','css/skeleton.css'))
+  if response.menu:
+     response.files.append(URL('static','css/superfish.css'))
+     response.files.append(URL('static','js/superfish.js'))
+  pass
+  response.files.append(URL('static','plugin_layout_deviation/style.css'))
+  }}
+
+  {{include 'web2py_ajax.html'}}
+
+  {{if response.menu:}}
+  <script type="text/javascript">
+    jQuery(function(){ jQuery('ul.sf-menu').supersubs({minWidth:12,maxWidth:30,extraWidth:3}).superfish(); });
+  </script>
+  {{pass}}
+
+</head>
+
+<body>
+<div id="wrapper">
+    <div id="header">
+        <div id="logo">
+            {{
+            library = db(db.library).select().last()
+            if library:
+                library_name = library.name
+            }}
+                <h1>{{=library_name}}</h1>
+            {{else:}}
+                <h1>{{=response.title or request.application}}</h1>
+            {{pass}}
+        </div>
+    </div>
+    <!-- end #header -->
+    <div id="menu">
+<!--        <ul>
+            <li class="current_page_item"><a href="#">Home</a></li>
+            <li><a href="#">Blog</a></li>
+            <li><a href="#">Photos</a></li>
+            <li><a href="#">About</a></li>
+            <li><a href="#">Links</a></li>
+            <li><a href="#">Contact</a></li>
+        </ul> -->
+<!-- # or {{=MENU(response.menu)}} but then how to use current_page_item ?-->
+            <div id="menu_bar">
+                {{='auth' in globals() and auth.navbar(separators=(' ', ' ', ' '))}}
+            </div>
+    </div>
+    <!-- end #menu -->
+    <div id="page">
+    <div id="page-bgtop">
+    <div id="page-bgbtm">
+        <div id="content">  
+            <div class="post">
+                {{if response.flash:}}
+                    <div class='flash' style='width: 100%; padding: 10px; color: black; background-color: #99CC33'> {{=response.flash}} </div>
+                {{pass}}
+            {{include}}
+            </div>      
+        <div style="clear: both;">&nbsp;</div>
+        </div>
+        <!-- end #content -->
+        <div id="sidebar">
+            <ul>
+                <li>
+                    <h2>Navigation</h2>
+                    {{=MENU(response.menu)}}
+                </li>
+            </ul>
+        </div>
+        <!-- end #sidebar -->
+        <div style="clear: both;">&nbsp;</div>
+    </div>
+    </div>
+    </div>
+    <!-- end #page -->
+</div> <!-- end wrapper -->
+    <div id="footer">
+        <p> From a design by <a href="http://www.freecsstemplates.org/">Free CSS Templates</a>.</p>
+    </div>
+    <!-- end #footer -->
+</body>
+</html>

@@ -1,0 +1,39 @@
+{{extend 'layout.html'}}
+<h2>Details</h2>
+{{if copy:}}
+    Title: {{=copy.title}} </br>
+    {{for author in copy.authors:}}
+    Author: {{=author}} </br>
+    {{pass}}
+    Publisher: {{=copy.publisher}} </br>
+    Publication Date: {{=copy.publication_date}} </br>
+    ISBN: {{=copy.isbn}} </br>
+    Barcode: {{=copy.barcode}}</br>
+    Description: <p>{{=copy.description or 'No Description Available'}}</p>
+    Location: {{=copy.location}} </br>
+    {{if copy.location == 'checked_out':}}
+        {{checkout_record = db(db.checkout.copy_id==copy.id).select().first()}}
+        Due Back: {{=checkout_record.due_date}} </br>
+    {{pass}}
+<h2>Reviews</h2>
+    {{if reviews:}}
+        {{for review in reviews:}}
+            <p>
+            By: {{=review.written_by.first_name}}</br>
+            Title: {{=review.heading}}<br>
+            Review: {{=review.body}}</br>
+            {{if auth.has_membership(auth.user_id, role='librarians'):}}
+                <a href="{{=URL('delete_review', args=[review.id, copy.id])}}">Remove Review</a>
+            {{pass}}
+            </p>
+        {{pass}}
+    {{else:}}
+        <p>No reviews yet</p>
+    {{pass}}
+    
+    {{if patron:}}
+        <p><a href="{{=URL('add_review', args=copy.id)}}">Add A Review!</a></p>
+    {{else:}}
+        <p>Sign in or join the library to post reviews</p>
+    {{pass}}
+{{pass}}

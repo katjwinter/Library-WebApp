@@ -1,0 +1,58 @@
+(dp1
+S'patron_id'
+p2
+(dp3
+S'type'
+p4
+S'reference patron'
+p5
+sS'sortable'
+p6
+I2
+sS'sql'
+p7
+S'INTEGER REFERENCES patron(id) ON DELETE CASCADE'
+p8
+ssS'check_out_date'
+p9
+(dp10
+g4
+S'date'
+p11
+sg6
+I4
+sg7
+S'DATE'
+p12
+ssS'id'
+p13
+(dp14
+g4
+g13
+sg6
+I1
+sg7
+S'INTEGER PRIMARY KEY AUTOINCREMENT'
+p15
+ssS'copy_id'
+p16
+(dp17
+g4
+S'reference book_copy'
+p18
+sg6
+I3
+sg7
+S'INTEGER REFERENCES book_copy(id) ON DELETE CASCADE'
+p19
+ssS'due_date'
+p20
+(dp21
+g4
+g11
+sg6
+I5
+sg7
+S'DATE'
+p22
+ss.

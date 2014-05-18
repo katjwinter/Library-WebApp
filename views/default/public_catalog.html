@@ -1,0 +1,17 @@
+{{extend 'layout.html'}}
+<h2>Search Our Online Catalog</h2>
+{{=form}}
+
+{{if results:}}
+    {{for result in results:}}
+        <p>
+        Title: {{=result.title}} </br>
+        {{for author in result.authors:}}
+            Author: {{=author}} </br>
+        {{pass}}
+        ISBN: {{=result.isbn}} </br>
+        Location: {{=result.location}} </br>
+        <a style="color: #A7430F" href="{{=URL('view_details', args=result.id)}}">View Details</a>
+        </p>
+    {{pass}}
+{{pass}}

@@ -1,0 +1,13 @@
+{{extend 'layout.html'}}
+
+<h1>Library System First Time Setup</h1>
+
+{{if form:}}
+<h2>Configure Library Name</h2>
+<p><div style="margin-left: 30px">{{=form}}</div></p>
+{{pass}}
+
+{{if reg_form:}}
+    <h2>Set Up Your Account as a Librarian</h2>
+    <p><div style="margin-left: 30px">{{=reg_form}}</div></p>
+{{pass}}

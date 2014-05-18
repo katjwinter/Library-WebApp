@@ -1,0 +1,15 @@
+{{extend 'layout.html'}}
+
+<h2>Current Librarian Accounts</h2>
+{{for librarian in librarians:}}
+    <p>
+    Name:{{=librarian.auth_user.first_name}} {{=librarian.auth_user.last_name}}</br>
+    Email:{{=librarian.auth_user.email}}</br>
+    <!-- For all accounts other than the one currently signed in, provide a Delete option -->
+    {{if librarian.auth_user.id != auth.user.id:}}
+        <a href="{{=URL('delete_librarian', vars={'user_id':librarian.auth_user.id, 'next':'manage_librarian_accounts'})}}">Delete Account</a>
+    {{pass}}
+    </p>
+{{pass}}
+<h2>Create a New Account?</h2>
+{{=new_user_form}}
