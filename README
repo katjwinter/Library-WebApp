@@ -1,3 +1,6 @@
+NOTE: You can test out the site at: http://trubrary.pythonanywhere.com/
+Instructions for login are available on the site.
+
 Simple library management application running on web2py.
 Allows creation of librarians and patrons and enables check-in, check-out of books as well as handling of patron fines.
 Written by Kat Winter-Lewis circa 2012 for a school project.
